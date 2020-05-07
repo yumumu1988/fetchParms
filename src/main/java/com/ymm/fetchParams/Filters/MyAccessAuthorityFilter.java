@@ -20,7 +20,12 @@ public class MyAccessAuthorityFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-
+        /*
+        * springboot2.2.6默认配置：spring.mvc.hiddenmethod.filter.enabled=false
+        * 如果不启用上述配置，需要执行下request.getParameter("*")方法，否则无法正确获取请求体中的数据
+        * */
+//        当前项目配置为：spring.mvc.hiddenmethod.filter.enabled=true
+//        request.getParameter("parseParameters");
         RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) request);
 
         String body = HttpUtil.getBodyString(requestWrapper);
